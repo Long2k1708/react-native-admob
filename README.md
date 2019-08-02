@@ -1,6 +1,6 @@
-# react-native-admob [![npm](https://img.shields.io/npm/v/react-native-admob.svg)](https://www.npmjs.com/package/react-native-admob) [![npm (next)](https://img.shields.io/npm/v/react-native-admob/next.svg)](https://www.npmjs.com/package/react-native-admob)
+# rn-admob [![npm](https://img.shields.io/npm/v/rn-admob.svg)](https://www.npmjs.com/package/rn-admob)
 
-### ⚠️ Please note, the master branch tracks development of version 2 of this library, which is currently in beta. For version 1 please check out the [1.x branch](https://github.com/sbugert/react-native-admob/tree/1.x).
+_This is a direct fork of sbugert/rn-admob so much thanks to @sbugert. The original library was unmaintained so hopefully, this fork will remedy most of the issues. The module was renamed to allow for publishing of new packages on npm._
 
 A react-native module for Google AdMob Banners, Interstitials, and Rewarded Videos, and also DFP Banners.
 
@@ -8,25 +8,50 @@ The banner types are implemented as components while the interstitial and reward
 
 ## Installation
 
-You can use npm or Yarn to install the latest beta version:
-
 **npm:**
 
-    npm i --save react-native-admob@next
+    npm i --save rn-admob
 
 **Yarn:**
+  
+ yarn add rn-admob
 
-    yarn add react-native-admob@next
+## Linking
+
+### For RN >= 0.60
+
+You won't need to do anything. Autolinking will do all the work for you.
+
+### For RN < 0.60
 
 In order to use this library, you have to link it to your project first. There's excellent documentation on how to do this in the [React Native Docs](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#content).
 
-### iOS
+### Using Cocoapods for iOS
+
+1. Run `react-native link` in your project directory. Or add this to your Podfile
+```
+pod 'RNAdMobManager', :path => '../node_modules/react-native-admob/ios'
+```
+2. `cd ios` and run `pod install`
+3. Add [Google Mobile Ads SDK](https://developers.google.com/admob/ios/quick-start#import_the_mobile_ads_sdk) to your Xcode project using Cocoapods
+4. Open your .xcworkspace project
+5. Double-click to `Pods` project, select `RNAdMobManager` in TARGET, click Build Pharses, expand `Link Binary With Libraries`, drag `GoogleMobileAds.framework` from Pods > Pods > Google-Mobile-Ads-SDK to `Link Binary With Libraries` you have expanded before.
+
+#### iOS
 
 For iOS you will have to add the [Google Mobile Ads SDK](https://developers.google.com/admob/ios/quick-start#import_the_mobile_ads_sdk) to your Xcode project.
 
-### Android
+#### Android
 
-On Android the AdMob library code is part of Play Services, which is automatically added when this library is linked.
+On Android the AdMob library code is part of Play Services, which is automatically added when this library is linked. But, you need to add your AdMob App ID to your app's `AndroidManifest.xml` by adding the `<meta-data>` tag shown below.
+
+```xml
+<!-- Put this inside <application></application> -->
+<meta-data
+  android:name="com.google.android.gms.ads.APPLICATION_ID"
+  android:value="YOUR_ADMOB_APP_ID"/>
+```
+Replace YOUR_ADMOB_APP_ID with your AdMob App ID. 
 
 ## Usage
 
@@ -36,7 +61,7 @@ import {
   AdMobInterstitial,
   PublisherBanner,
   AdMobRewarded,
-} from 'react-native-admob'
+} from 'rn-admob'
 
 // Display a banner
 <AdMobBanner
@@ -75,7 +100,7 @@ For a full example reference to the [example project](Example).
 
 ##### `adSize`
 
-*Corresponding to [iOS framework banner size constants](https://developers.google.com/admob/ios/banner)*
+_Corresponding to [iOS framework banner size constants](https://developers.google.com/admob/ios/banner)_
 
 <table>
   <thead>
@@ -129,7 +154,7 @@ For a full example reference to the [example project](Example).
   </tbody>
 </table>
 
-*Note: There is no `smartBannerPortrait` and `smartBannerLandscape` on Android. Both prop values will map to `smartBanner`*
+_Note: There is no `smartBannerPortrait` and `smartBannerLandscape` on Android. Both prop values will map to `smartBanner`_
 
 ##### `onAdLoaded`
 
@@ -155,8 +180,7 @@ Accepts a function. Called when a user click will open another app (such as the 
 
 Accepts a function. Called when the size of the banner changes. The function is called with an object containing the width and the height.
 
-
-*Above names correspond to the [Ad lifecycle event callbacks](https://developers.google.com/admob/android/banner#ad_events)*
+_Above names correspond to the [Ad lifecycle event callbacks](https://developers.google.com/admob/android/banner#ad_events)_
 
 ### PublisherBanner
 
@@ -190,7 +214,7 @@ Sets the AdUnit ID for all future ad requests.
 
 Sets the devices which are served test ads.
 
-*For simulators/emulators you can use `AdMobInterstitial.simulatorId` for the test device ID.*
+_For simulators/emulators you can use `AdMobInterstitial.simulatorId` for the test device ID._
 
 ##### `requestAd()`
 
@@ -203,7 +227,6 @@ Shows an interstitial and returns a promise, which resolves when an ad is going 
 ##### `isReady(callback)`
 
 Calls callback with a boolean value whether the interstitial is ready to be shown.
-
 
 #### Events
 
@@ -265,7 +288,7 @@ Sets the AdUnit ID for all future ad requests.
 
 Sets the devices which are served test ads.
 
-*For simulators/emulators you can use `AdMobRewarded.simulatorId` for the test device ID.*
+_For simulators/emulators you can use `AdMobRewarded.simulatorId` for the test device ID._
 
 ##### `requestAd()`
 
@@ -339,4 +362,4 @@ Unfortunately, events are not consistent across iOS and Android. To have one uni
 
 ## TODO
 
-- [ ] Support [Ad Targeting](https://developers.google.com/admob/ios/targeting) (RFC: [#166](https://github.com/sbugert/react-native-admob/pull/166))
+-   [ ] Support [Ad Targeting](https://developers.google.com/admob/ios/targeting) (RFC: [#166](https://github.com/sbugert/rn-admob/pull/166))
