@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.author       = { "theweavrs" => "thecodrr@protonmail.com" }
   s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/theweavrs/react-native-admob", :tag => "master" }
-  s.source_files = "ios/*.{h,m}"
+  s.source_files = "ios/**/*.{h,m}"
 
   s.dependency "React"
 

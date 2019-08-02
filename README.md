@@ -30,7 +30,7 @@ In order to use this library, you have to link it to your project first. There's
 
 1. Run `react-native link` in your project directory. Or add this to your Podfile
 ```
-pod 'RNAdMobManager', :path => '../node_modules/react-native-admob/ios'
+pod 'RNAdMobManager', :path => '../node_modules/react-native-admob'
 ```
 2. `cd ios` and run `pod install`
 3. Add [Google Mobile Ads SDK](https://developers.google.com/admob/ios/quick-start#import_the_mobile_ads_sdk) to your Xcode project using Cocoapods
